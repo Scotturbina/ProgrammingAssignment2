@@ -5,10 +5,10 @@
 
 
 makeCacheMatrix <- function(x = matrix()) {
-        Invalid<- NULL
+        Invs<- NULL
         Setting<- function(z) {
                 x<<-z
-                Invalid<<- NULL
+                Invs<<- NULL
 
 }
 
@@ -26,7 +26,23 @@ makeCacheMatrix <- function(x = matrix()) {
 
 
 ## Write a short comment describing this function
+                
+                ##This function computes the inverse of the special "matrix" returned by makeCacheMatrix above. 
+                ##If the inverse has already been calculated (and the matrix has not changed), 
+                ##then the cachesolve should retrieve the inverse from the cache.
 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
+       
+        inv <- x$getInv()
+        if (!is.null(inv)) {
+                message("we are now getting the cache")
+                return(inv)
+        }
+        mattfunct <- x$Obt()
+        inv <- solve(mattfunc, ...)
+        x$setInv(inv)
+        inv
+        
+        
 }
